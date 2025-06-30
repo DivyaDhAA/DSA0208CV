@@ -1,0 +1,20 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load grayscale image
+image = cv2.imread(r'C:\Users\divya\OneDrive\Pictures\Totoro.jpg')
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+def display(img, title='Image'):
+    plt.imshow(img, cmap='gray')
+    plt.title(title)
+    plt.axis('off')
+    plt.show()
+
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
+# Load pre-trained object detector (YOLOv3 or MobileNet-SSD can be used, here using basic ORB for demo)
+orb = cv2.ORB_create()
+kp, des = orb.detectAndCompute(gray, None)
+img_kp = cv2.drawKeypoints(image, kp, None, color=(0,255,0), flags=0)
+display(cv2.cvtColor(img_kp, cv2.COLOR_BGR2RGB), "Watch Recognition with ORB (Q36)")
