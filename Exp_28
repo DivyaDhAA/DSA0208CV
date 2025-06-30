@@ -1,0 +1,19 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load image (update path)
+image = cv2.imread(r'C:\Users\divya\OneDrive\Pictures\Totoro.jpg')
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+def display(img, title='Image'):
+    plt.imshow(img, cmap='gray')
+    plt.title(title)
+    plt.axis('off')
+    plt.show()
+kernel = np.array([[1, 1, 1],
+                   [1,-8, 1],
+                   [1, 1, 1]])
+
+boundary = cv2.filter2D(gray, -1, kernel)
+display(boundary, "Boundary Detection via Convolution (Q28)")
