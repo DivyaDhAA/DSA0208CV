@@ -1,0 +1,26 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load image (update path)
+image = cv2.imread('your_image.jpg')
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+def display(img, title='Image'):
+    plt.imshow(img, cmap='gray')
+    plt.title(title)
+    plt.axis('off')
+    plt.show()
+kernel1 = np.array([[-1, -2, -1],
+                    [ 0,  0,  0],
+                    [ 1,  2,  1]])
+
+kernel2 = np.array([[-1, 0, 1],
+                    [-2, 0, 2],
+                    [-1, 0, 1]])
+
+grad1 = cv2.filter2D(gray, -1, kernel1)
+grad2 = cv2.filter2D(gray, -1, kernel2)
+gradient = cv2.addWeighted(grad1, 0.5, grad2, 0.5, 0)
+
+display(gradient, "Gradient Masking Sharpening (Q25)")
