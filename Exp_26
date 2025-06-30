@@ -1,0 +1,17 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load image (update path)
+image = cv2.imread(r'C:\Users\divya\OneDrive\Pictures\Totoro.jpg')
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+def display(img, title='Image'):
+    plt.imshow(img, cmap='gray')
+    plt.title(title)
+    plt.axis('off')
+    plt.show()
+watermarked = image.copy()
+cv2.putText(watermarked, 'Watermark', (20, 50), cv2.FONT_HERSHEY_SIMPLEX,
+            1.5, (255, 255, 255), 2, cv2.LINE_AA)
+display(cv2.cvtColor(watermarked, cv2.COLOR_BGR2RGB), "Watermarked Image (Q26)")
