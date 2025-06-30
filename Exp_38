@@ -1,0 +1,22 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load grayscale image
+image = cv2.imread(r'C:\Users\divya\OneDrive\Pictures\Totoro.jpg')
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+def display(img, title='Image'):
+    plt.imshow(img, cmap='gray')
+    plt.title(title)
+    plt.axis('off')
+    plt.show()
+
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
+
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+img_faces = image.copy()
+for (x, y, w, h) in faces:
+    cv2.rectangle(img_faces, (x, y), (x+w, y+h), (255, 0, 0), 2)
+display(cv2.cvtColor(img_faces, cv2.COLOR_BGR2RGB), "Face Detection (Q38)")
